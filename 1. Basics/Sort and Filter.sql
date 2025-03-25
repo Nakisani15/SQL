@@ -1,23 +1,48 @@
-SELECT TOP 10 Name, ListPrice
-FROM Production.Product
-ORDER BY ListPrice DESC;
+--USsing the SELECT and DISTINCT--
+select * from Person.Person
 
-SELECT TOP 10 WITH TIES Name, ListPrice
-FROM Production.Product
-ORDER BY ListPrice DESC;
+SELECT DISTINCT Title, NameStyle, FirstName, MiddleName
+FROM PERSON.Person
 
-SELECT TOP 10 PERCENT Name, ListPrice
-FROM Production.Product
-ORDER BY ListPrice ASC;
+SELECT DISTINCT MiddleName
+FROM PERSON.Person
 
-SELECT ProductID, ProductNumber, ListPrice
-FROM Production.Product
-ORDER BY ListPrice DESC 
-OFFSET 0 ROWS --Skip zero rows
-FETCH NEXT 10 ROWS ONLY; --Get the next 10
+--Using the COUNT clause--
+SELECT COUNT(DISTINCT Title)
+FROM PERSON.Person
 
-SELECT ProductID, ProductNumber, ListPrice
+SELECT COUNT(*) AS DistinctTitle
+FROM (SELECT DISTINCT Title FROM PERSON.Person);
+
+--using the WHERE CLAUSE--
+SELECT NationalIDNumber, SalariedFlag, HireDate, JobTitle, BirthDate
+FROM HumanResources.Employee
+WHERE Gender = 'M'
+
+SELECT COUNT(*)
+FROM HumanResources.Employee
+WHERE HireDate> '2010-12-26'
+
+SELECT *
+FROM HumanResources.Employee
+WHERE HireDate< '2009-09-15'
+
+--Using the 'ORDER BYE' Clause
+SELECT BusinessEntityID, Bonus, TerritoryID, SalesYTD
+FROM Sales.SalesPerson
+Order by ModifiedDate
+
+SELECT BusinessEntityID, Bonus, ModifiedDate, SalesYTD
+FROM Sales.SalesPerson
+Order by TerritoryID DESC
+
+Select *
 FROM Production.Product
-ORDER BY ListPrice ASC 
-OFFSET 0 ROWS --Skip zero rows
-FETCH NEXT 10 ROWS ONLY; --Get the next 10
+ORDER BY ProductID, Weight, Class
+
+Select Name
+FROM Production.Product
+ORDER BY ProductID, Weight, ReorderPoint DESC
+
+SELECT COUNT(*) AS DistinctJobTitle
+FROM (SELECT DISTINCT JobTitle FROM HumanResources.Employee) AS JobTitles;
